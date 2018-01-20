@@ -1,18 +1,17 @@
 /************************************************************************************************************************************/
 /** @file		ViewController.swift
- *  @project    0_0 - Empty Template (Swift)
+ *  @project    0_1 - CallKit
  * 	@brief		x
  * 	@details	x
  *
  * 	@author		Justin Reina, Firmware Engineer, Jaostech
- * 	@created	11/12/15
- * 	@last rev	1/1/18
+ * 	@created	1/19/18
+ * 	@last rev	1/19/18
  *
  * 	@section	Opens
- * 	    none current
- *
- *  @note       to minimize extra uikit console prints set OS_ACTIVITY_MODE=disable" by editing the selected run Scheme and setting
- *              as an environment run variable
+ * 	    Grab phonebook
+ *      Grab call log
+ *      add phone call notify
  *
  * 	@section	Legal Disclaimer
  * 			All contents of this source file and/or any other Jaostech related source files are the explicit property on Jaostech
@@ -24,7 +23,6 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    
     /********************************************************************************************************************************/
     /** @fcn        init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
      *  @brief      x
@@ -59,9 +57,6 @@ class ViewController: UIViewController {
         
         self.view.translatesAutoresizingMaskIntoConstraints = false;
 
-        genButton(self.view);
-        genLabel(self.view);
-        
         //listen to 'Home' press
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(UIApplicationDelegate.applicationWillResignActive(_:)),
@@ -98,91 +93,6 @@ class ViewController: UIViewController {
         return;
     }
 
-    
-    /********************************************************************************************************************************/
-    /** @fcn        genButton(_ view:UIView)
-     *  @brief      add a button to the view
-     *  @details    x
-     */
-    /********************************************************************************************************************************/
-    func genButton(_ view:UIView) {
-        
-        let button      : UIButton  = UIButton(type: UIButtonType.system) as UIButton;
-        let buttonWidth : CGFloat   = 300;
-        
-        button.frame = CGRect(x: self.view.center.x-(buttonWidth/2), y: 100, width: buttonWidth, height: 50);
-
-        
-        button.backgroundColor = UIColor.green;
-        
-        button.setTitle("Test Button", for: UIControlState());
-  
-        button.addTarget(self, action: #selector(ViewController.response(_:)), for:  .touchUpInside);
-
-        view.addSubview(button);
-        
-        print("ViewController.genButton():   button added");
-        
-        return;
-    }
-    
-    
-    /********************************************************************************************************************************/
-    /** @fcn        genLabel(_ view:UIView)
-     *  @brief      add a label to the view
-     *  @details    x
-     */
-    /********************************************************************************************************************************/
-    func genLabel(_ view:UIView) {
-        
-        let myFirstLabel  = UILabel();
-
-        myFirstLabel.text          = "I made a label on the screen #toogood4you";
-        myFirstLabel.font          = UIFont(name: "MarkerFelt-Thin", size: 45);
-        myFirstLabel.textColor     = UIColor.red;
-        myFirstLabel.textAlignment = .center;
-
-        //text-wrap
-        myFirstLabel.numberOfLines = 0;
-        myFirstLabel.lineBreakMode = .byWordWrapping;
-        
-        myFirstLabel.frame = CGRect(x: (self.view.center.x - 150), y: 200, width: 300, height: 325);
-        
-        myFirstLabel.backgroundColor = UIColor.gray;
-        
-        view.addSubview(myFirstLabel);
-        
-        print("ViewController.genLabel():    label added");
-
-        return;
-    }
-
-
-    /********************************************************************************************************************************/
-    /** @fcn        response(_ sender: UIButton!)
-     *  @brief      pop up a message in response
-     *  @details    x
-     */
-    /********************************************************************************************************************************/
-    @objc func response(_ sender: UIButton!) {
-
-        let alert:UIAlertController = UIAlertController(title:          "Pop-up",
-                                                        message:        "message",
-                                                        preferredStyle: UIAlertControllerStyle.alert);
-        
-        alert.addAction(UIAlertAction(title:   "OK",
-                                      style:   UIAlertActionStyle.cancel,
-                                      handler: nil));
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate;
-        
-        appDelegate.window?.rootViewController?.present(alert, animated:true, completion:nil);
-        
-        print("ViewController.response():    button response complete");
-            
-        return;
-    }
-    
     
     /********************************************************************************************************************************/
     /** @fcn        init?(coder aDecoder: NSCoder)
